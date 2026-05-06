@@ -136,7 +136,7 @@ def run_games(name, player_fn, size, depth, games_count=5):
         # The textbook game prints every board by default.
         # This hides that output so we only see the final summary.
         with contextlib.redirect_stdout(io.StringIO()):
-            result = game.play_game(player_fn(depth), random_player)
+            result = game.play_game(player_fn(depth), alpha_beta_player)
 
         end = time.time()
 
@@ -159,12 +159,14 @@ def run_games(name, player_fn, size, depth, games_count=5):
 
 # Experiment 1:
 # Compare original alpha-beta vs improved heuristic alpha-beta.
-for size in [7, 8, 10]:
-    print(f"\nBoard size: {size}x{size}")
+# for size in [7, 8, 10]:
+#     print(f"\nBoard size: {size}x{size}")
 
-    for depth in [1, 2, 3]:
-        run_games("Original", original_player, size, depth)
-        run_games("Improved", improved_player, size, depth)
+#     for depth in [1, 2, 3]:
+#         run_games("Original", original_player, size, depth)
+#         run_games("Improved", improved_player, size, depth)
+
+run_games("Improved", improved_player, 7, 4)
 
 
 # Experiment 2:
