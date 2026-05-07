@@ -177,9 +177,9 @@ def run_games(name, player_fn, size, depth, games_count=5):
 # Show one explainable AI decision.
 # print("\nExplainable AI Demo")
 
-def ai_demo():
-    demo_game = ConnectFour(h=10, v=10, k=4)
-    demo_state = demo_game.initial
+def ai_demo(state, game):
+    demo_game = game
+    demo_state = state
     demo_player = demo_game.to_move(demo_state)
 
     demo_move = improved_player(3)(demo_game, demo_state)
@@ -191,3 +191,25 @@ def ai_demo():
     )
     print("Selected move:", demo_move)
     print(demo_explanation)
+
+def random_connect_four_state(h=7, v=7, k=4, num_moves=None):
+    game = ConnectFour(h, v, k)
+    state = game.initial
+    temp_moves = num_moves
+    while True:
+        if temp_moves is None:
+            temp_moves = random.randint(0, (h * v) // 2)
+
+        for _ in range(temp_moves):
+            available = game.actions(state)
+            if not available or game.terminal_test(state):
+                break
+            move = random.choice(available)
+            state = game.result(state, move)
+
+        if game.terminal_test(state):
+            return state, game
+        
+        temp_moves = num_moves 
+
+# print(random_connect_four_state())

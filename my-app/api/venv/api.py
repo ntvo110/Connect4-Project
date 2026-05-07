@@ -17,9 +17,29 @@ def handle_sim_request():
 
     return jsonify({"message": output})
 
+
+@app.route('/gen-board', methods=['POST'])
+def handle_gen_request():
+    data = request.json
+    size = data.get('size')
+    numMoves = data.get('numMoves')
+    if numMoves == 0:
+        numMoves = None
+    print(numMoves)
+    global current_state, current_game
+    current_state, current_game = random_connect_four_state(h = size, v = size, k = 4, num_moves=numMoves)
+    serial_board = {f"{x}, {y}": v for (x, y), v in current_state.board.items()}
+    return jsonify({
+        "message": "Random board generated",
+        "board": serial_board
+        })
+
 @app.route('/run-random', methods=['GET'])
 def handle_random_request():
-    output = ai_demo()
-    return jsonify({"message": output})
+    global current_state, current_game
+    if current_state is None:
+        return jsonify({"message": "No board generated yet"}), 400
 
+    output = ai_demo(current_state, current_game)
+    return jsonify({"message": output})
 

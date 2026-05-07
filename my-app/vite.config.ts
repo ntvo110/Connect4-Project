@@ -12,6 +12,7 @@ export default defineConfig({
     proxy: {
       '/run-sim': 'http://localhost:5000',
       '/run-random': 'http://localhost:5000',
+      '/gen-board': 'http://localhost:5000',
     }
   }
 })
