@@ -198,7 +198,7 @@ def random_connect_four_state(h=7, v=7, k=4, num_moves=None):
     temp_moves = num_moves
     while True:
         if temp_moves is None:
-            temp_moves = random.randint(0, (h * v) // 2)
+            temp_moves = random.randint(1, (h * v) // 2)
 
         for _ in range(temp_moves):
             available = game.actions(state)
@@ -207,7 +207,7 @@ def random_connect_four_state(h=7, v=7, k=4, num_moves=None):
             move = random.choice(available)
             state = game.result(state, move)
 
-        if game.terminal_test(state):
+        if not game.terminal_test(state):
             return state, game
         
         temp_moves = num_moves 

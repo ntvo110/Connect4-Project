@@ -160,9 +160,10 @@ function App() {
 
         {/* Board Display */}
         <BoardDisplay board={board} />
-        
-        <ControlSlider label="Board size (nxn)" min={7} max={10} value={genSize} onChange={handleGenSizeChange}/>
-        <ControlSlider label="Number of Moves" min={0} max={20} value={numMoves} onChange={setNumMoves}/>
+        <div style={{display: "flex", gap: 12, marginBottom: "1.5rem"}}>
+          <ControlSlider label="Board size (nxn)" min={7} max={10} value={genSize} onChange={handleGenSizeChange}/>
+          <ControlSlider label="Number of Moves" min={0} max={20} value={numMoves} onChange={setNumMoves}/>
+        </div>
         <div>
           {genLoading ? <div className='spinner'></div> : <p></p>}
         </div>
